@@ -12,8 +12,12 @@
     <main class="container">
         <show_post th:if="${posts}">
             <div th:each="item : ${posts}">
-                <h2 th:text="${item.title}"></h2>
-                <p th:text="${item.body}"></p>
+                <form th:action="@{'/posts/' + ${item.id}}">
+                    <h2 th:text="${item.title}"></h2>
+                    <p th:text="${item.body}"></p>
+                    <button>View</button>
+                    <br>
+                </form>
                 <br>
             </div>
         </show_post>

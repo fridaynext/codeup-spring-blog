@@ -1,6 +1,7 @@
 package com.codeup.blog.controllers;
 
 import com.codeup.blog.models.Post;
+import com.codeup.blog.repository.PostRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,19 +11,21 @@ import java.util.List;
 
 @Controller
 public class PostController {
+    private final PostRepository postRepo;
+
+    public PostController(PostRepository postRepo) {
+        this.postRepo = postRepo;
+    }
 
     @RequestMapping(path = "/posts", method = RequestMethod.GET)
     public String showAllPosts(Model model) {
-        List<Post> postList = new ArrayList<>();
-        postList.add(new Post(0, "First Post", "This is the first Post"));
-        postList.add(new Post(0, "Second Post", "This is the second Post"));
-        model.addAttribute("posts", postList);
+        model.addAttribute("posts", postRepo.findAll());
         return "posts/index";
     }
 
     @GetMapping("/posts/{id}")
     public String showOnePost(@PathVariable long id, Model model) {
-        Post post = new Post(0, "Single Post", "This is the boday for the single post");
+        Post post = postRepo.getAdById(id);
         model.addAttribute("post", post);
         return "posts/show";
     }
