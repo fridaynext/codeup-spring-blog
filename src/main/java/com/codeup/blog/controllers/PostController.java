@@ -31,14 +31,55 @@ public class PostController {
     }
 
     @RequestMapping(path = "/posts/create", method = RequestMethod.GET)
-    @ResponseBody
     public String createPostForm() {
-        return "Tell me about your day!";
+        return "posts/create";
     }
 
     @RequestMapping(path = "/posts/create", method = RequestMethod.POST)
-    @ResponseBody
-    public String sendingCreatedPostToDB() {
-        return "Sending your diary page to be seen by everyone. :)";
+    public String createPost(@RequestParam(name = "title") String title,
+                             @RequestParam(name = "body") String body,
+                             Model model) {
+        Post post = new Post();
+        post.setTitle(title);
+        post.setBody(body);
+        postRepo.save(post);
+        return "redirect:/posts/" + post.getId();
+    }
+
+
+    @GetMapping("/posts/delete/{id}")
+    public String deletePost(@PathVariable long id, Model model) {
+        Post post = postRepo.getAdById(id);
+        if (post != null) {
+            postRepo.delete(post);
+        }
+        return "redirect:/posts";
+    }
+
+
+    @GetMapping("/posts/edit/{id}")
+    public String showEditPost(@PathVariable long id, Model model) {
+        Post post = postRepo.getAdById(id);
+        if (post == null) {
+            return "redirect:/posts/index";
+        }
+        model.addAttribute("post", post);
+        return "posts/edit";
+    }
+
+
+    @PostMapping("/posts/edit")
+    public String updatePost(@RequestParam(name = "id") long id,
+                             @RequestParam(name = "title") String title,
+                             @RequestParam(name = "body") String body,
+                             Model model) {
+        Post post = postRepo.getAdById(id);
+        if (post == null) {
+            return "redirect:/posts/index";
+        }
+        post.setTitle(title);
+        post.setBody(body);
+        postRepo.save(post);
+        return "redirect:/posts/" + post.getId();
     }
 }
