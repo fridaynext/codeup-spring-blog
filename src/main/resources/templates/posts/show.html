@@ -12,6 +12,12 @@
     <main class="container">
         <h2 th:text="${post.title}"></h2>
         <p th:text="${post.body}"></p>
+        <form style="display: inline" th:action="@{'/posts/edit/' + ${post.id}}">
+            <button>Edit</button>
+        </form>
+        <form style="display: inline" th:action="@{'/posts/delete/' + ${post.id}}">
+            <button>delete</button>
+        </form>
     </main>
 
     <footer th:replace="partials/footer :: footer"></footer>
