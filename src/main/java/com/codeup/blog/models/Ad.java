@@ -30,7 +30,7 @@ public class Ad {
 
     public Ad() {
     }
-
+  
     public long getId() {
         return id;
     }

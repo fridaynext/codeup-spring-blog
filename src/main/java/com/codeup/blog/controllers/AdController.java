@@ -1,6 +1,7 @@
 package com.codeup.blog.controllers;
 
 import com.codeup.blog.models.Ad;
+
 import com.codeup.blog.models.AdCategory;
 import com.codeup.blog.repositories.AdRepository;
 import com.codeup.blog.repositories.UserRepository;
@@ -45,5 +46,45 @@ public class AdController {
         ad.setOwner(userDao.getOne(1L));
         adDao.save(ad);
         return "redirect:/ads";
+    }
+
+    @GetMapping("/ads/create")
+    public String showCreateView() {
+        return "ads/create";
+    }
+
+    @PostMapping("/ads/create")
+    public String createAd(@RequestParam(name = "title") String title,
+                           @RequestParam(name = "description") String description,
+                           Model model) {
+        Ad ad = new Ad(title, description);
+        adRepo.save(ad);
+        return "redirect:/ads/" + ad.getId();
+    }
+
+    @GetMapping("/ads/delete/{id}")
+    public String deleteAd(@PathVariable long id, Model model) {
+        Ad ad = adRepo.getAdById(id);
+        adRepo.delete(ad);
+        return "redirect:/ads";
+    }
+
+    @GetMapping("/ads/edit/{id}")
+    public String editAd(@PathVariable long id, Model model) {
+        Ad ad = adRepo.getAdById(id);
+        model.addAttribute("ad", ad);
+        return "ads/edit";
+    }
+
+    @PostMapping("/ads/edit")
+    public String updateAd(@RequestParam(name = "id") long id,
+                           @RequestParam(name = "title") String title,
+                           @RequestParam(name = "description") String description) {
+        Ad ad = new Ad();
+        ad.setId(id);
+        ad.setTitle(title);
+        ad.setDescription(description);
+        adRepo.save(ad);
+        return "redirect:/ads/" + ad.getId();
     }
 }
