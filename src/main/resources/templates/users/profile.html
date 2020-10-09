@@ -9,17 +9,15 @@
     <header th:replace="partials/header :: header"></header>
     <nav th:replace="partials/navbar :: navbar"></nav>
 
+    <h1>Welcome to <span th:text="${user.username}"></span>'s Profile Page</h1>
+
     <main class="container">
-        <show_post th:if="${ads}">
-            <div th:each="item : ${ads}">
+        <h2>Ads by this user:</h2>
+        <show_post th:if="${user.ads}">
+            <div th:each="item : ${user.ads}">
                 <h2 th:text="${item.title}"></h2>
                 <p th:text="${item.description}"></p>
                 <br>
-                <p th:if="${item.categories}">
-                    <span th:each="cat : ${item.categories}">
-                        <span th:text="${cat.name}"></span>
-                    </span>
-                </p>
             </div>
         </show_post>
     </main>
