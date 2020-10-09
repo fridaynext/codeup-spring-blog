@@ -7,10 +7,7 @@ import com.codeup.blog.repositories.AdRepository;
 import com.codeup.blog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,20 +55,20 @@ public class AdController {
                            @RequestParam(name = "description") String description,
                            Model model) {
         Ad ad = new Ad(title, description);
-        adRepo.save(ad);
+        adDao.save(ad);
         return "redirect:/ads/" + ad.getId();
     }
 
     @GetMapping("/ads/delete/{id}")
     public String deleteAd(@PathVariable long id, Model model) {
-        Ad ad = adRepo.getAdById(id);
-        adRepo.delete(ad);
+        Ad ad = adDao.getOne(id);
+        adDao.delete(ad);
         return "redirect:/ads";
     }
 
     @GetMapping("/ads/edit/{id}")
     public String editAd(@PathVariable long id, Model model) {
-        Ad ad = adRepo.getAdById(id);
+        Ad ad = adDao.getOne(id);
         model.addAttribute("ad", ad);
         return "ads/edit";
     }
@@ -84,7 +81,7 @@ public class AdController {
         ad.setId(id);
         ad.setTitle(title);
         ad.setDescription(description);
-        adRepo.save(ad);
+        adDao.save(ad);
         return "redirect:/ads/" + ad.getId();
     }
 }

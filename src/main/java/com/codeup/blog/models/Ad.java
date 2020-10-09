@@ -30,7 +30,13 @@ public class Ad {
 
     public Ad() {
     }
-  
+
+    public Ad(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
+
     public long getId() {
         return id;
     }
