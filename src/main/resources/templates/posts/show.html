@@ -12,6 +12,7 @@
     <main class="container">
         <h2 th:text="${post.title}"></h2>
         <p th:text="${post.body}"></p>
+        <p>This post was loving crafted by one of our users. To email them, contact them at: <span th:text="${post.user.email}"></span></p>
         <form style="display: inline" th:action="@{'/posts/edit/' + ${post.id}}">
             <button>Edit</button>
         </form>
