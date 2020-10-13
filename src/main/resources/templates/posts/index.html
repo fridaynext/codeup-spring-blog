@@ -2,34 +2,27 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Show Posts</title>
+    <title>Show Post List</title>
     <link th:replace="partials/links :: links"/>
 </head>
 <body>
-    <header th:replace="partials/header :: header"></header>
-    <nav th:replace="partials/navbar :: navbar"></nav>
+    <div th:replace="partials/header :: header"></div>
+    <nav th:replace="partials/navbar :: navbar"/>
 
     <main class="container">
-        <show_post th:if="${posts}">
+        <show_posts th:if="${posts}">
             <div th:each="item : ${posts}">
-                <h2 th:text="${item.title}"></h2>
-                <p th:text="${item.body}"></p>
-                <form style="display: inline" th:action="@{'/posts/' + ${item.id}}">
+                <form th:action="@{'/posts/' + ${item.id}}">
+                    <h2 th:text="${item.title}" />
+                    <p th:if="${item.body}" th:text="${item.body}" > </p>
                     <button>View</button>
+                    <br><br>
                 </form>
-                <form style="display: inline" th:action="@{'/posts/edit/' + ${item.id}}">
-                    <button>Edit</button>
-                </form>
-                <form style="display: inline" th:action="@{'/posts/delete/' + ${item.id}}">
-                    <button>delete</button>
-                </form>
-                <br>
-                <br>
             </div>
-        </show_post>
+        </show_posts>
     </main>
 
-    <footer th:replace="partials/footer :: footer"></footer>
-    <scripts th:replace="partials/scripts :: scripts"></scripts>
+    <div th:replace="partials/footer :: footer"></div>
+    <div th:replace="partials/scripts :: scripts"/>
 </body>
 </html>

@@ -1,25 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create A Post</title>
-    <link th:replace="partials/links :: links"/>
+    <title>Create Ad</title>
+    <div th:replace="partials/links :: links"/>
 </head>
 <body>
-<header th:replace="partials/header :: header"></header>
-<nav th:replace="partials/navbar :: navbar"></nav>
+<header th:replace="partials/header :: header"/>
+<nav th:replace="partials/navbar :: navbar"/>
 
-<main class="container">
-    <form action="/posts/create" method="post">
-        <label for="title">Enter Post Title: </label> <br>
-        <input type="text" id="title" name="title"/> <br>
-        <label for="body">Enter your post: </label> <br>
-        <textarea name="body" id="body" cols="72" rows="4"></textarea> <br>
-        <button type="submit">Submit</button>
-    </form>
-</main>
+    <main class="container">
+        <form th:action="@{/posts/create}" th:method="post" th:object="${post}">
+            <input type="text" th:field="*{id}" style="display: none;">
+            <label for="title">Enter The Topic: </label>
+            <input type="text" id="title" th:field="*{title}"><br>
+            <label for="body">Type in the blog post:</label><br>
+            <textarea th:field="*{body}" id="body" cols="72" rows="5"></textarea><br>
+            <button>Submit</button>
+        </form>
+    </main>
 
-<footer th:replace="partials/footer :: footer"></footer>
-<scripts th:replace="partials/scripts :: scripts"></scripts>
+<footer th:replace="partials/footer :: footer"/>
+<div th:replace="partials/scripts :: scripts"/>
+</body>
 </body>
 </html>
