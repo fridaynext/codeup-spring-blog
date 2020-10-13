@@ -2,26 +2,25 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Show A Post</title>
+    <title>Show Post</title>
     <link th:replace="partials/links :: links"/>
 </head>
 <body>
-    <header th:replace="partials/header :: header"></header>
-    <nav th:replace="partials/navbar :: navbar"></nav>
+    <div th:replace="partials/header :: header"></div>
+    <nav th:replace="partials/navbar :: navbar"/>
 
     <main class="container">
-        <h2 th:text="${post.title}"></h2>
-        <p th:text="${post.body}"></p>
-        <p>This post was loving crafted by one of our users. To email them, contact them at: <span th:text="${post.user.email}"></span></p>
-        <form style="display: inline" th:action="@{'/posts/edit/' + ${post.id}}">
-            <button>Edit</button>
-        </form>
-        <form style="display: inline" th:action="@{'/posts/delete/' + ${post.id}}">
-            <button>delete</button>
-        </form>
+        <show_post th:if="${post}">
+            <h2 th:text="${post.title}"></h2>
+            <p th:text="${post.body}"></p>
+            <p>Email: <span th:text="${post.user.email}"></span></p>
+            <form style="display: inline" th:action="@{'/posts'}"><button>List</button></form>
+            <form style="display: inline" th:action="@{'/posts/edit/' + ${post.id}}"><button>Edit</button></form>
+            <form style="display: inline" th:action="@{'/posts/delete/' + ${post.id}}"><button>Delete</button></form>
+        </show_post>
     </main>
 
-    <footer th:replace="partials/footer :: footer"></footer>
-    <scripts th:replace="partials/scripts :: scripts"></scripts>
+    <div th:replace="partials/footer :: footer"></div>
+    <div th:replace="partials/scripts :: scripts"/>
 </body>
 </html>

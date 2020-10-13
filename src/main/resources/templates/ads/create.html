@@ -7,11 +7,12 @@
     <div th:replace="partials/links :: links"/>
 </head>
 <body>
-<header th:replace="partials/header :: header"></header>
-<nav th:replace="partials/navbar :: navbar"/>
+    <header th:replace="partials/header :: header"></header>
+    <nav th:replace="partials/navbar :: navbar"/>
 
     <main class="container">
         <form th:action="@{/ads/create}" th:method="post" th:object="${ad}">
+            <input style="display: none" th:value="${ad.id}" th:field="*{id}"/>
             <label for="title">Enter Ad Title: </label>
             <input type="text" id="title" th:field="*{title}"><br>
             <label for="description">Type in the ad text:</label><br>

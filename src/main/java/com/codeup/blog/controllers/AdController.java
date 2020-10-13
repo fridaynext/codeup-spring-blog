@@ -49,7 +49,8 @@ public class AdController {
     }
 
     @GetMapping("/ads/create")
-    public String showCreateView() {
+    public String showCreateView(Model model) {
+        model.addAttribute("ad", new Ad());
         return "ads/create";
     }
 
@@ -60,7 +61,7 @@ public class AdController {
     }
 
     @GetMapping("/ads/delete/{id}")
-    public String deleteAd(@PathVariable long id, Model model) {
+    public String deleteAd(@PathVariable long id) {
         Ad ad = adRepo.getOne(id);
         adRepo.delete(ad);
         return "redirect:/ads";
@@ -70,12 +71,6 @@ public class AdController {
     public String editAd(@PathVariable long id, Model model) {
         Ad ad = adRepo.getOne(id);
         model.addAttribute("ad", ad);
-        return "ads/edit";
-    }
-
-    @PostMapping("/ads/edit")
-    public String updateAd(@ModelAttribute Ad ad) {
-        adRepo.save(ad);
-        return "redirect:/ads/" + ad.getId();
+        return "ads/create";
     }
 }

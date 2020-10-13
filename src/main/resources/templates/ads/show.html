@@ -1,27 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Show A Post</title>
-    <link th:replace="partials/links :: links"/>
+    <title>View Ad</title>
+    <div th:replace="partials/links :: links"/>
 </head>
 <body>
-    <header th:replace="partials/header :: header"></header>
-    <nav th:replace="partials/navbar :: navbar"></nav>
+    <header th:replace="partials/header :: header"/>
+    <nav th:replace="partials/navbar :: navbar"/>
 
     <main class="container">
         <h2 th:text="${ad.title}"></h2>
         <p th:text="${ad.description}"></p>
-        <br>
-        <p th:if="${ad.categories}">
-                    <span th:each="cat : ${ad.categories}">
-                        <span th:text="${cat.name}"></span>
-                    </span>
-        </p>
-        <p>This ad was created by: <span th:text="${ad.owner.username}"></span></p>
+        <p th:if="${ad.owner}">Email: <span th:text="${ad.owner.email}"></span></p>
+        <form style="display: inline" th:action="@{'/ads/edit/' + ${ad.id}}"><button>Edit</button></form>
+        <form style="display: inline" th:action="@{'/ads/delete/' + ${ad.id}}"><button>Delete</button></form>
     </main>
 
-    <footer th:replace="partials/footer :: footer"></footer>
-    <scripts th:replace="partials/scripts :: scripts"></scripts>
+    <footer th:replace="partials/footer :: footer"/>
+    <div th:replace="partials/scripts :: scripts"/>
+</body>
 </body>
 </html>
