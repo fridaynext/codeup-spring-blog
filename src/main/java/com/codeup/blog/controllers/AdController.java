@@ -2,6 +2,7 @@ package com.codeup.blog.controllers;
 
 import com.codeup.blog.models.Ad;
 
+import com.codeup.blog.models.AdCategory;
 import com.codeup.blog.models.User;
 import com.codeup.blog.repositories.AdRepository;
 import com.codeup.blog.repositories.UserRepository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 
 @Controller
 public class AdController {
@@ -35,10 +37,19 @@ public class AdController {
         return "ads/show";
     }
 
-    @GetMapping("/ads/create")
-    public String showCreateView(Model model) {
+    @GetMapping("ads/hardcoded/create")
+    public String createHardcodedAd() {
         Ad ad = new Ad();
-        model.addAttribute("ad", ad);
+        ad.setTitle("Title to Chevy Silverado, Title only.");
+        ad.setDescription("Selling the title to Daddy's Silverado. His car was lost at sea.");
+        ad.setCategories(new ArrayList<AdCategory>());
+        ad.setOwner(userRepo.getOne(1L));
+        adRepo.save(ad);
+        return "redirect:/ads";
+    }
+
+    @GetMapping("/ads/create")
+    public String showCreateView() {
         return "ads/create";
     }
 
