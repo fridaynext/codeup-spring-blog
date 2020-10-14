@@ -10,15 +10,32 @@
 <header th:replace="partials/header :: header"/>
 <nav th:replace="partials/navbar :: navbar"/>
 
-    <main class="container">
+    <main class="container mt-3">
         <form th:action="@{/posts/create}" th:method="post" th:object="${post}">
-            <input type="text" th:field="*{id}" style="display: none;">
-            <label for="title">Enter The Topic: </label>
-            <input type="text" id="title" th:field="*{title}"><br>
-            <label for="body">Type in the blog post:</label><br>
-            <textarea th:field="*{body}" id="body" cols="72" rows="5"></textarea><br>
-            <button>Submit</button>
+            <div class="form-group">
+                <input type="text" th:field="*{id}" style="display: none;">
+                <label for="title">Post Title</label>
+                <input type="text" class="form-control" id="title" aria-describedby="titleHelp" th:field="*{title}">
+                <small id="titleHelp" class="form-text text-muted">Give this a great click-bait-y title!</small>
+            </div>
+            <div class="form-group">
+                <label for="body">Post Content</label>
+                <textarea th:field="*{body}" class="form-control" aria-describedby="bodyHelprr" id="body" cols="72" rows="5"></textarea>
+                <small id="bodyHelp" class="form-text text-muted">Type in your blog post here</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+
+
+
+<!--        <form th:action="@{/posts/create}" th:method="post" th:object="${post}">-->
+<!--            <input type="text" th:field="*{id}" style="display: none;">-->
+<!--            <label for="title">Enter The Topic: </label>-->
+<!--            <input type="text" id="title" th:field="*{title}"><br>-->
+<!--            <label for="body">Type in the blog post:</label><br>-->
+<!--            <textarea th:field="*{body}" id="body" cols="72" rows="5"></textarea><br>-->
+<!--            <button>Submit</button>-->
+<!--        </form>-->
     </main>
 
 <footer th:replace="partials/footer :: footer"/>

@@ -9,14 +9,22 @@
     <div th:replace="partials/header :: header"></div>
     <nav th:replace="partials/navbar :: navbar"/>
 
-    <main class="container">
+    <main class="container mt-3">
         <show_post th:if="${post}">
-            <h2 th:text="${post.title}"></h2>
-            <p th:text="${post.body}"></p>
-            <p>Email: <span th:text="${post.user.email}"></span></p>
-            <form style="display: inline" th:action="@{'/posts'}"><button>List</button></form>
-            <form style="display: inline" th:action="@{'/posts/edit/' + ${post.id}}"><button>Edit</button></form>
-            <form style="display: inline" th:action="@{'/posts/delete/' + ${post.id}}"><button>Delete</button></form>
+            <div class="card">
+                <div class="card-header">
+                    Blog Post
+                </div>
+                <div class="card-body">
+                    <h2 class="card-title" th:text="${post.title}"></h2>
+                    <p class="card-text" th:text="${post.body}"></p>
+                    <form style="display: inline" th:action="@{'/posts'}"><button type="submit" class="btn btn-secondary">List</button></form>
+                    <form style="display: inline" th:action="@{'/posts/edit/' + ${post.id}}"><button type="submit" class="btn btn-primary">Edit</button></form>
+                    <form style="display: inline" th:action="@{'/posts/delete/' + ${post.id}}"><button type="submit" class="btn btn-danger">Delete</button></form>
+                    <p class="mt-3"><strong>Email:</strong> <span th:text="${post.user.email}"></span></p>
+                </div>
+            </div>
+
         </show_post>
     </main>
 
