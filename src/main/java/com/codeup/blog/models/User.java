@@ -37,6 +37,16 @@ public class User {
         this.posts = posts;
     }
 
+    // Our "Copy Constructor", used with Spring Security
+    public User(User copy) {
+        id = copy.id; // This line is SUPER important! Many things won't work if it's absent
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
+        this.ads = copy.ads;
+        this.posts = copy.posts;
+    }
+
     public long getId() {
         return id;
     }
