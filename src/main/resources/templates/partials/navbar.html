@@ -16,7 +16,7 @@
                     <a class="nav-link" href="/hello/there">Hello</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/join">Join</a>
+                    <a class="nav-link" href="/sign-up">Join</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -40,6 +40,11 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+                <li class="nav-item">
+                    <form th:action="@{/logout}" th:method="post">
+                        <button class="nav-link btn-link btn" style="margin-top: 8px">Logout</button>
+                    </form>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">

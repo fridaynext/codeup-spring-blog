@@ -63,14 +63,14 @@ public class AdsIntegrationTests {
 
         // TODO: Need a login page to do this test - we'll update this to use Spring Security after going through that lesson
         // Throws a Post request to /login and expect a redirection to the Ads index page after being logged in
-        // httpSession = this.mvc.perform(post("/login").with(csrf())
-        //         .param("username", "testUser")
-        //         .param("password", "codeup2020"))
-        //         .andExpect(status().is(HttpStatus.FOUND.value()))
-        //         .andExpect(redirectedUrl("/ads"))
-        //         .andReturn()
-        //         .getRequest()
-        //         .getSession();
+        httpSession = this.mvc.perform(post("/login").with(csrf())
+                .param("username", "testUser")
+                .param("password", "codeup2020"))
+                .andExpect(status().is(HttpStatus.FOUND.value()))
+                .andExpect(redirectedUrl("/ads"))
+                .andReturn()
+                .getRequest()
+                .getSession();
     }
 
     // ********************* Sanity Tests ********************** //
