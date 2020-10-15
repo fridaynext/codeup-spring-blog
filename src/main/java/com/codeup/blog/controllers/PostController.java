@@ -72,4 +72,14 @@ public class PostController {
         postRepo.save(post);
         return "redirect:/posts/" + post.getId();
     }
+
+    // Add functionality for login page
+    @GetMapping("/login")
+    public String loginFunc(Model model) {
+        // Check if they tried to log in and failed, and sticky that username
+        return "users/login";
+    }
+
+    @PostMapping("/login")
+    public String
 }

@@ -61,7 +61,7 @@ public class AdsIntegrationTests {
             testUser = userDao.save(newUser);
         }
 
-        // TODO: Need a login page to do this test - which we'll set up in Spring Security module
+        // TODO: Need a login page to do this test - we'll update this to use Spring Security after going through that lesson
         // Throws a Post request to /login and expect a redirection to the Ads index page after being logged in
         // httpSession = this.mvc.perform(post("/login").with(csrf())
         //         .param("username", "testUser")
