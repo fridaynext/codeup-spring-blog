@@ -60,15 +60,21 @@ public class AdController {
     @PostMapping("/ads/create")
     public String createAd(@ModelAttribute Ad ad) {
         String update;
+
+        // set flag values for a create email
         if (ad.getId() == 0) {
             update = "Created Ad: ";
             ad.setOwner(userRepo.findAll().get(0));
-        } else {
+        }
+        // set flag values for an edit email
+        else {
             update = "Edited Ad: ";
             ad.setOwner(adRepo.getOne(ad.getId()).getOwner());
         }
         adRepo.save(ad);
-        emailService.prepareAndSend(ad,
+
+        // send create or edit notification
+        emailService.prepareAndSend(ad.getOwner().getEmail(),
                 update + ad.getTitle(),
                 ad.getTitle() +"\n\n" + ad.getDescription());
         return "redirect:/ads/" + ad.getId();
@@ -77,9 +83,11 @@ public class AdController {
     @GetMapping("/ads/delete/{id}")
     public String deleteAd(@PathVariable long id) {
         Ad ad = adRepo.getOne(id);
-        ad.setOwner(adRepo.getOne(id).getOwner());
+        ad.setOwner(adRepo.getOne(id).getOwner()); // get owner from database
         adRepo.delete(ad);
-        emailService.prepareAndSend(ad,
+
+        // send delete notification
+        emailService.prepareAndSend(ad.getOwner().getEmail(),
                 "Deleted Ad: " + ad.getTitle(),
                 ad.getTitle() +"\n\n" + ad.getDescription());
         return "redirect:/ads";
